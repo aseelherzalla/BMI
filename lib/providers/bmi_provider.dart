@@ -9,4 +9,5 @@ class BmiProvider extends ChangeNotifier{
     gender = value;
     notifyListeners();
   }
+
 }

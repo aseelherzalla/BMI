@@ -1,18 +1,20 @@
 import 'dart:async';
+import 'package:bmi/pages/addfooddetails_page.dart';
 import 'package:bmi/pages/completinformation_page.dart';
+import 'package:bmi/pages/foodlist.dart';
+import 'package:bmi/pages/home_page.dart';
 import 'package:bmi/pages/login_page.dart';
-import 'package:bmi/pages/newrecord_page.dart';
 import 'package:provider/provider.dart';
-
 import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:bmi/helpers/theme.dart';
 //import 'package:bmi/ui/splach.dart';
 //import 'package:bmi/ui/splach.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<BmiProvider>(
               create: (context) =>BmiProvider(),
-              child: MaterialApp(home:NewRecord())),
+              child: MaterialApp(theme:ThemeHelper.themeHelper.lightTheme,home: FoodDetails())),
    // MaterialApp(home:completeInformation())
   );
 }
