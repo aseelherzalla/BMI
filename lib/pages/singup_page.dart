@@ -32,11 +32,7 @@ class SignUpPage extends StatelessWidget{
                         controller: nameController,
                         obscure: false,
                         visible: false,
-                        validaitor: (value){
-                                 if (value == null || value.isEmpty) {
-                                   return 'please enter some text';
-        
-                            }}),
+                        ),
               DefultTextField(textName: 'E-mail',
                         controller: emailController,
                         obscure: false,
@@ -50,22 +46,14 @@ class SignUpPage extends StatelessWidget{
                         controller: passwordController,
                         obscure: true,
                         visible: true,
-                        validaitor: (value){
-                                 if (value == null || value.isEmpty) {
-                                   return 'please enter some text';
-        
-                            }}),
+                       ),
                             
              
               DefultTextField(textName: 'Re-Password',
                         controller: repasswordController,
                         obscure: false,
                         visible: false,
-                        validaitor: (value){
-                                 if (value == null || value.isEmpty) {
-                                   return 'please enter some text';
-        
-                            }}),
+                       ),
              SizedBox(height: 100,),
               GestureDetector(
                       onTap: (){ },

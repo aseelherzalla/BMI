@@ -4,6 +4,7 @@ import 'package:bmi/pages/completinformation_page.dart';
 import 'package:bmi/pages/foodlist.dart';
 import 'package:bmi/pages/home_page.dart';
 import 'package:bmi/pages/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ void main() {
   runApp(
     ChangeNotifierProvider<BmiProvider>(
               create: (context) =>BmiProvider(),
-              child: MaterialApp(theme:ThemeHelper.themeHelper.lightTheme,home: FoodDetails())),
+              child: MaterialApp(theme:ThemeHelper.themeHelper.lightTheme,home: FirebaseConfiguration())),
    // MaterialApp(home:completeInformation())
   );
 }
@@ -28,7 +29,7 @@ class _SplashState extends State<Splach> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds:5),
+        Duration(seconds:2),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => LoginPage())));
   }
@@ -71,11 +72,10 @@ class DefultTextField extends StatefulWidget{
 class _DefultTextFieldState extends State<DefultTextField> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
       controller: widget.controller,
-      validator: widget.validaitor,
       obscureText: widget.obscure,
-      style: TextStyle(fontSize: 13), 
+      style: Theme.of(context).textTheme.headline4, 
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
         hintText: widget.textName,
@@ -92,6 +92,28 @@ class _DefultTextFieldState extends State<DefultTextField> {
         borderSide: BorderSide(color:Color(0xFF1588d8)),   
   ),   
       ),
+    );
+  }
+}
+class FirebaseConfiguration extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<FirebaseApp>(
+        future: Firebase.initializeApp(),
+        builder: (context, dataSnapshot) {
+          if (dataSnapshot.connectionState == ConnectionState.done) {
+            return Splach();
+          }
+          if (dataSnapshot.hasError) {
+            return Scaffold(
+              body: Center(child: Text(dataSnapshot.error.toString())),
+            );
+          }
+          return Scaffold(
+            body: CircularProgressIndicator(),
+          );
+        }
     );
   }
 }

@@ -33,7 +33,13 @@ class ThemeHelper{
        headline4: TextStyle(
          fontSize: 16,
         color:Colors.black,
-    ),),
+    ),
+     headline5: TextStyle(
+         fontSize: 13,
+        color:Colors.grey,
+    ),
+
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         textStyle:MaterialStateProperty.all<TextStyle>(
