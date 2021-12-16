@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 enum Gender { femal, male }
 
 class completeInformation extends StatelessWidget {
+  static String router ='completeInformation';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -7,7 +7,7 @@ List<String> foodCategory = [
     'fastfood',
   ];
 
-class EditeFoodDetails extends StatelessWidget{
+class AddMealDetails extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class EditeFoodDetails extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 60,),
-            Center(child: Text('Edit Food Details',style: Theme.of(context).textTheme.headline1)),
+            Center(child: Text('Add Meal Details',style: Theme.of(context).textTheme.headline1)),
             SizedBox(height: 60,),
             GridView(
               shrinkWrap: true,
@@ -31,13 +31,7 @@ class EditeFoodDetails extends StatelessWidget{
                 mainAxisExtent: 25,
                 mainAxisSpacing: 30 ),
                 children: [
-                  Text('Name',style: Theme.of(context).textTheme.headline2,),
-                  Container(
-                   decoration: BoxDecoration(
-                   border: Border.all(color: Theme.of(context).primaryColor) ),
-                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
-                      ),
-                   Text('Category',style: Theme.of(context).textTheme.headline2,),
+                   Text('Food',style: Theme.of(context).textTheme.headline2,),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -84,7 +78,8 @@ class EditeFoodDetails extends StatelessWidget{
                       )
                     ),
                   ),
-               Text('Calory',style: Theme.of(context).textTheme.headline2,),
+                  
+               Text('Amount',style: Theme.of(context).textTheme.headline2,),
                Row(
                  children: [
                    Expanded(
@@ -96,22 +91,27 @@ class EditeFoodDetails extends StatelessWidget{
                    ),
                     Padding(
                       padding: const EdgeInsetsDirectional.only(start: 5),
-                      child: Text('cal/g', style: Theme.of(context).textTheme.headline3,),
-                    )
+                      child: Text('unit', style: Theme.of(context).textTheme.headline3,),
+                    ),
+                   
                  ],
                ),
+                Text('Date',style: Theme.of(context).textTheme.headline2,),
+                  Container(
+                   decoration: BoxDecoration(
+                   border: Border.all(color: Theme.of(context).primaryColor) ),
+                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
+                      ),
+                      Text('Time',style: Theme.of(context).textTheme.headline2,),
+                  Container(
+                   decoration: BoxDecoration(
+                   border: Border.all(color: Theme.of(context).primaryColor) ),
+                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
+                      ),
                 ],
                 ),
-            SizedBox(height: 30,),
-            Text('Photo',style: Theme.of(context).textTheme.headline2,),
-            SizedBox(height: 20,),
-            Container(
-              width: double.infinity,
-              height: 280,
-               decoration: BoxDecoration(
-                        border: Border.all(color: Theme.of(context).primaryColor) ),
-              child: Image.asset('assets/images/logo.PNG',fit: BoxFit.fill,),),
-            SizedBox(height: 20,),
+           
+            SizedBox(height: 80,),
             Container(
               width: 400,
               child: Row(
@@ -119,11 +119,11 @@ class EditeFoodDetails extends StatelessWidget{
                   Expanded(
                     flex: 2,
                     child: ElevatedButton(
-                       child: Text('Upload Photo'),
+                       child: Text('Reset'),
                        style: Theme.of(context).elevatedButtonTheme.style,
                        onPressed: (){},),
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(width: 60,),
                     Expanded(
                     child: ElevatedButton(
                        child: Text('Save'),

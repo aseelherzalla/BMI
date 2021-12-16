@@ -13,23 +13,23 @@ class FireStoreDb {
   static FireStoreDb fireStoreHelper = FireStoreDb._();
   FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-  addUser(UserInfo user) async {
+  addUser(UserInformation user) async {
     await firebaseFireStore
         .collection("Users")
         .doc(user.id)
         .set(user.toMap());
   }
 
-  updateUser(UserInfo user) async {
+  updateUser(UserInformation user) async {
     await firebaseFireStore
         .collection("Users")
         .doc(user.id)
         .set(user.toMap());
   }
-  Future<UserInfo> getUser(String userId) async {
+  Future<UserInformation> getUser(String userId) async {
     DocumentSnapshot documentSnapshot =
     await firebaseFireStore.collection("Users").doc(userId).get();
-    return UserInfo.fromMap(documentSnapshot.data());
+    return UserInformation.fromMap(documentSnapshot.data());
   }
   Future<String> getUserEmailFromFireStoreByUserName(String name) async {
     QuerySnapshot querySnapshot =

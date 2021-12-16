@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:bmi/pages/addfooddetails_page.dart';
+import 'package:bmi/pages/addmealdetails.dart';
 import 'package:bmi/pages/completinformation_page.dart';
+import 'package:bmi/pages/editfooddetails.dart';
 import 'package:bmi/pages/foodlist.dart';
 import 'package:bmi/pages/home_page.dart';
 import 'package:bmi/pages/login_page.dart';
+import 'package:bmi/pages/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:bmi/providers/bmi_provider.dart';
@@ -15,7 +18,10 @@ void main() {
   runApp(
     ChangeNotifierProvider<BmiProvider>(
               create: (context) =>BmiProvider(),
-              child: MaterialApp(theme:ThemeHelper.themeHelper.lightTheme,home: FirebaseConfiguration())),
+              child: MaterialApp(
+                routes: {},
+                navigatorKey: RouterHelper.route.navigatorKey,
+                theme:ThemeHelper.themeHelper.lightTheme,home:AddMealDetails() /*FirebaseConfiguration()*/ )),
    // MaterialApp(home:completeInformation())
   );
 }
@@ -117,44 +123,5 @@ class FirebaseConfiguration extends StatelessWidget {
     );
   }
 }
-/*class SplachPage extends StatelessWidget{
-  void initState() {
-    super.initState();
-    Timer(
-        Duration(seconds:4),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => MyApp())));
-  }
-  @override
-  Widget build(BuildContext context) {
-   return Scaffold(
-     backgroundColor: Color(0xFF1588d8),
-     body:
-      Center(
-        child: Container(
-         child:Image.asset('assets/images/logo.PNG') ,),
-      ),
-   );
-  }
-  
-}*/
-/*TextFormField(
-                controller:passwordController ,
-                obscureText: obscure,
-                decoration:InputDecoration(
-                  contentPadding: EdgeInsets.all(0),
-                  hintText: 'password',
-                  suffix:IconButton(
-          icon:obscure?Icon(Icons.visibility_off_outlined ,size: 16,color: Colors.grey,): Icon(Icons.remove_red_eye_outlined,size: 16,color: Colors.grey,), 
-          onPressed: (){
-            setState(() {
-               obscure=!obscure;
-            });
-           
-          },) ,
-                  enabledBorder: UnderlineInputBorder(      
-                                 borderSide: BorderSide(color:Color(0xFF1588d8)),   
-  ),  ) ,
 
-              ),*/
 

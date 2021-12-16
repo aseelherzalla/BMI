@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class UserInfo {
+class UserInformation {
   String id;
   String name;
   String email;
   String gender;
   String dateOfBirth;
 
-  UserInfo({
+  UserInformation({
     @required this.id,
     @required this.name,
     @required this.email,
@@ -15,7 +15,7 @@ class UserInfo {
     @required this.dateOfBirth,
   });
 
-  UserInfo.fromMap(Map map) {
+  UserInformation.fromMap(Map map) {
     this.id = map["id"];
     this.name = map["name"];
     this.email = map["email"];
