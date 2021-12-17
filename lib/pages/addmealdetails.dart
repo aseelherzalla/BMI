@@ -1,17 +1,19 @@
+import 'package:bmi/pages/home_page.dart';
+import 'package:bmi/pages/router.dart';
+import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // this list will be in provider page//
-List<String> foodCategory = [
-    'fruits',
-    'vegetables',
-    'fastfood',
-  ];
 
 class AddMealDetails extends StatelessWidget{
+  static String router ='AddMealDetails';
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    Consumer<BmiProvider>(
+      builder:(context, provider, child) =>Scaffold(
       appBar:AppBar(
          title: Text('BMI Analyser',style: Theme.of(context).appBarTheme.titleTextStyle,),
       ) ,
@@ -43,20 +45,20 @@ class AddMealDetails extends StatelessWidget{
                             underline: Container(),
                             isExpanded: true,
                             iconEnabledColor: Theme.of(context).primaryColor,
-                            value: foodCategory.first,
-                              items: foodCategory
+                            value: provider.foodList==null?'No food added':provider.foodList.first.name,
+                              items: provider.foodList
                                   .map(
                                     (e) => DropdownMenuItem<String>(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.only(start: 5),
                                         child: Text(
-                                          e,
+                                          e.name,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
                                         ),
                                       ),
-                                      value: e,
+                                      value: e.name,
                                     ),
                                   )
                                   .toList(),
@@ -86,7 +88,12 @@ class AddMealDetails extends StatelessWidget{
                      child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: Theme.of(context).primaryColor) ),
-                      child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
+                      child:TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: provider.amountController,
+                                    style:
+                                    Theme.of(context).textTheme.headline4,
+                                  )
                             ),
                    ),
                     Padding(
@@ -97,17 +104,38 @@ class AddMealDetails extends StatelessWidget{
                  ],
                ),
                 Text('Date',style: Theme.of(context).textTheme.headline2,),
-                  Container(
-                   decoration: BoxDecoration(
-                   border: Border.all(color: Theme.of(context).primaryColor) ),
-                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
-                      ),
+                    GestureDetector(
+                    onTap: (){
+                       provider.changDate(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Theme.of(context).primaryColor)),
+                      child:  Center(
+                                    child: Text(
+                                  provider.date,
+                                  style: Theme.of(context).textTheme.headline3,
+                                )),        
+                    ),
+                  ),
                       Text('Time',style: Theme.of(context).textTheme.headline2,),
-                  Container(
-                   decoration: BoxDecoration(
-                   border: Border.all(color: Theme.of(context).primaryColor) ),
-                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
-                      ),
+                  GestureDetector(
+                    onTap: (){
+                      provider.changTime(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Theme.of(context).primaryColor)),
+                      child: Expanded(
+                          child: Center(
+                              child: Text(
+                        provider.time,
+                        style: Theme.of(context).textTheme.headline3,
+                      ))),
+                    ),
+                  ),
                 ],
                 ),
            
@@ -121,14 +149,21 @@ class AddMealDetails extends StatelessWidget{
                     child: ElevatedButton(
                        child: Text('Reset'),
                        style: Theme.of(context).elevatedButtonTheme.style,
-                       onPressed: (){},),
+                       onPressed: (){
+                         provider.cleanFields();
+                         provider.clearRecordFields();
+                       },),
                   ),
                   SizedBox(width: 60,),
                     Expanded(
                     child: ElevatedButton(
                        child: Text('Save'),
                        style: Theme.of(context).elevatedButtonTheme.style,
-                       onPressed: (){},),
+                       onPressed: (){
+                         RouterHelper.router.pushReplacementNamed(HomePage.router);
+                         provider.cleanFields();
+                         provider.clearRecordFields();
+                       },),
                   ),
 
                 ],),
@@ -139,7 +174,7 @@ class AddMealDetails extends StatelessWidget{
 
       ),
 
-    );
+    ));
   }
 
 }

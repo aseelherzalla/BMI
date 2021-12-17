@@ -1,145 +1,275 @@
+import 'package:bmi/helpers/authentication.dart';
+import 'package:bmi/models/food.dart';
+import 'package:bmi/pages/router.dart';
+import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // this list will be in provider page//
-List<String> foodCalegory = [
-    'fruits',
-    'vegetables',
-    'fastfood',
-  ];
-
-class FoodDetails extends StatelessWidget{
-  
+class FoodDetails extends StatelessWidget {
+  static String router = 'FoodDetails';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-         title: Text('BMI Analyser',style: Theme.of(context).appBarTheme.titleTextStyle,),
-      ) ,
-      body: Padding(
-        padding: const EdgeInsetsDirectional.only(start: 40,end: 60) ,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 60,),
-            Center(child: Text('Add Food Details',style: Theme.of(context).textTheme.headline1)),
-            SizedBox(height: 60,),
-            GridView(
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                mainAxisExtent: 25,
-                mainAxisSpacing: 30 ),
+    return Consumer<BmiProvider>(
+        builder: (context, provider, child) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'BMI Analyser',
+              style: Theme.of(context).appBarTheme.titleTextStyle,
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 40, end: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name',style: Theme.of(context).textTheme.headline2,),
-                  Container(
-                   decoration: BoxDecoration(
-                   border: Border.all(color: Theme.of(context).primaryColor) ),
-                   child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
+                  SizedBox(
+                    height: 60,
+                  ),
+                  Center(
+                      child: Text('Add Food Details',
+                          style: Theme.of(context).textTheme.headline1)),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  GridView(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15,
+                        mainAxisExtent: 25,
+                        mainAxisSpacing: 30),
+                    children: [
+                      Text(
+                        'Name',
+                        style: Theme.of(context).textTheme.headline2,
                       ),
-                   Text('Category',style: Theme.of(context).textTheme.headline2,),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border:Border.all(color:Theme.of(context).primaryColor)
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor)),
+                        child: TextFormField(
+                          controller: provider.foodName,
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
                       ),
-                      child:Stack(
+                      Text(
+                        'Category',
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Theme.of(context).primaryColor)),
+                          child: Stack(
+                            children: [
+                              DropdownButton(
+                                underline: Container(),
+                                isExpanded: true,
+                                iconEnabledColor:
+                                Theme.of(context).primaryColor,
+                                value: provider.selectedItem,
+                                items: provider.foodCategory
+                                    .map(
+                                      (e) => DropdownMenuItem<String>(
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsetsDirectional
+                                          .only(start: 5),
+                                      child: Text(
+                                        e,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3,
+                                      ),
+                                    ),
+                                    value: e,
+                                  ),
+                                )
+                                    .toList(),
+                                onChanged: (v) {
+                                  provider.changeSelectedItem(v);
+                                },
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    end: 20),
+                                child: Align(
+                                  alignment: AlignmentDirectional.topEnd,
+                                  child: VerticalDivider(
+                                    thickness: 1,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Text(
+                        'Calory',
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                      Row(
                         children: [
-                          DropdownButton(
-                            underline: Container(),
-                            isExpanded: true,
-                            iconEnabledColor: Theme.of(context).primaryColor,
-                            value: foodCalegory.first,
-                              items: foodCalegory
-                                  .map(
-                                    (e) => DropdownMenuItem<String>(
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.only(start: 5),
-                                        child: Text(
-                                          e,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3,
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                      Theme.of(context).primaryColor)),
+                              child: Center(
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: provider.foodUnitController,
+                                    style:
+                                    Theme.of(context).textTheme.headline4,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                  start: 5),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Theme.of(context)
+                                              .primaryColor)),
+                                  child: Stack(
+                                    children: [
+                                      DropdownButton(
+                                        underline: Container(),
+                                        isExpanded: true,
+                                        iconEnabledColor:
+                                        Theme.of(context).primaryColor,
+                                        value: provider.selectedUnit,
+                                        items: provider.foodunit
+                                            .map(
+                                              (e) =>
+                                              DropdownMenuItem<String>(
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsetsDirectional
+                                                      .only(start: 5),
+                                                  child: Text(
+                                                    e,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline3,
+                                                  ),
+                                                ),
+                                                value: e,
+                                              ),
+                                        )
+                                            .toList(),
+                                        onChanged: (v) {
+                                          provider.changeSelectedUnit(v);
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .only(end: 20),
+                                        child: Align(
+                                          alignment:
+                                          AlignmentDirectional.topEnd,
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: Theme.of(context)
+                                                .primaryColor,
+                                          ),
                                         ),
                                       ),
-                                      value: e,
-                                    ),
-                                  )
-                                  .toList(),
-                              onChanged: (v) {
-                              },
+                                    ],
+                                  )),
                             ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.only(end: 20),
-                          child: Align(
-                            alignment: AlignmentDirectional.topEnd,
-                            child: VerticalDivider(
-                                thickness: 1,
-                                color: Theme.of(context).primaryColor,
-                          
-                              ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Photo',
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      width: double.infinity,
+                      height: 280,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Theme.of(context).primaryColor)),
+                      child: provider.imagePath == null
+                          ? Image.asset(
+                        'assets/images/addphoto.png',
+                        fit: BoxFit.fill,
+                      )
+                          : Image.file(
+                        provider.imagePath,
+                        fit: BoxFit.cover,
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 400,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: ElevatedButton(
+                            child: Text('Upload Photo'),
+                            style:
+                            Theme.of(context).elevatedButtonTheme.style,
+                            onPressed: () {
+                              provider.pickImage();
+                            },
                           ),
                         ),
-                        ],
-                      )
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            child: Text('Save'),
+                            style:
+                            Theme.of(context).elevatedButtonTheme.style,
+                            onPressed: () async {
+                              if (provider.foodName.text != '' &&
+                                  provider.foodUnitController.text != '' &&
+                                  provider.selectedItem != null &&
+                                  provider.selectedUnit != null &&
+                                  provider.imagePath != null) {
+                                await provider.getImgUrl();
+                                provider.addFood(Food(
+                                    userId: provider.userInfo.id,
+                                    name: provider.foodName.text,
+                                    category: provider.selectedItem,
+                                    calory: double.parse(provider.foodUnitController.text.trim()),
+                                    unit: provider.selectedUnit,
+                                    img : provider.imgUrl));
+                                RouterHelper.router.pop();
+                                provider.cleanFields();
+                              } else {
+                               Authentication.authentication
+                                    .showToast('please, fill All Fields');
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-               Text('Calory',style: Theme.of(context).textTheme.headline2,),
-               Row(
-                 children: [
-                   Expanded(
-                     child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Theme.of(context).primaryColor) ),
-                      child:Expanded(child: Center(child: Text('', style: Theme.of(context).textTheme.headline3,))),  
-                            ),
-                   ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(start: 5),
-                      child: Text('cal/g', style: Theme.of(context).textTheme.headline3,),
-                    )
-                 ],
-               ),
                 ],
-                ),
-            SizedBox(height: 30,),
-            Text('Photo',style: Theme.of(context).textTheme.headline2,),
-            SizedBox(height: 20,),
-            Container(
-              width: double.infinity,
-              height: 280,
-               decoration: BoxDecoration(
-                        border: Border.all(color: Theme.of(context).primaryColor) ),
-              child: Image.asset('assets/images/logo.PNG',fit: BoxFit.fill,),),
-            SizedBox(height: 20,),
-            Container(
-              width: 400,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                       child: Text('Upload Photo'),
-                       style: Theme.of(context).elevatedButtonTheme.style,
-                       onPressed: (){},),
-                  ),
-                  SizedBox(width: 30,),
-                    Expanded(
-                    child: ElevatedButton(
-                       child: Text('Save'),
-                       style: Theme.of(context).elevatedButtonTheme.style,
-                       onPressed: (){},),
-                  ),
-
-                ],),
+              ),
             ),
-           
-            
-          ],),
-
-      ),
-
-    );
+          ),
+        ));
   }
-
 }
+

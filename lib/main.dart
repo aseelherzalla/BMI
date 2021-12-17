@@ -6,22 +6,33 @@ import 'package:bmi/pages/editfooddetails.dart';
 import 'package:bmi/pages/foodlist.dart';
 import 'package:bmi/pages/home_page.dart';
 import 'package:bmi/pages/login_page.dart';
+import 'package:bmi/pages/newrecordpage.dart';
 import 'package:bmi/pages/router.dart';
+import 'package:bmi/pages/singup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi/helpers/theme.dart';
-//import 'package:bmi/ui/splach.dart';
-//import 'package:bmi/ui/splach.dart';
+
 void main() {
   runApp(
     ChangeNotifierProvider<BmiProvider>(
               create: (context) =>BmiProvider(),
               child: MaterialApp(
-                routes: {},
-                navigatorKey: RouterHelper.route.navigatorKey,
-                theme:ThemeHelper.themeHelper.lightTheme,home:AddMealDetails() /*FirebaseConfiguration()*/ )),
+                routes: {
+                  SignUpPage.router: (context) => SignUpPage(),
+                  CompleteInformation.router: (context) => CompleteInformation(),
+                  HomePage.router: (context) => HomePage(),
+                  LoginPage.router: (context) => LoginPage(),
+                  NewRecored.router: (context) => NewRecored(),
+                  FoodDetails.router:(context) => FoodDetails(),
+                  AddMealDetails.router:(context) => AddMealDetails(),
+                  EditeFoodDetails.router:(context) => EditeFoodDetails(),
+                  FoodList.router:(context) =>FoodList(),
+                },
+                navigatorKey: RouterHelper.router.navigatorKey,
+                theme:ThemeHelper.themeHelper.lightTheme,home:FirebaseConfiguration()) ),
    // MaterialApp(home:completeInformation())
   );
 }
@@ -36,8 +47,7 @@ class _SplashState extends State<Splach> {
     super.initState();
     Timer(
         Duration(seconds:2),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => LoginPage())));
+        () => Provider.of<BmiProvider>(context,listen: false).isLogin());
   }
 
   @override

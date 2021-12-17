@@ -58,30 +58,13 @@ class SignUpPage extends StatelessWidget{
                           visible: false,
                          ),
                SizedBox(height: 100,),
-                GestureDetector(
-                        onTap: (){ },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          width: double.infinity,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                               color: Colors.grey,
-                               blurRadius: 10,
-                               offset: Offset(2, 4), // Shadow position
-                                ),
-                               ],
-                            color:Color(0xFF1588d8),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          
-                          child:Center(
-                            child: Text('Create',style: TextStyle(fontSize:20,color:Colors.white),
-                            ),
-                          )
-                        ),
-                  ),
+                ElevatedButton(
+              child: Text('CREAT'),
+              style: Theme.of(context).elevatedButtonTheme.style,
+              onPressed: () {
+                provider.CreateButton();
+              },
+            ),
                   SizedBox(height: 30,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Authentication {
   Authentication._();
-  static Authentication authHelper = Authentication._();
+  static Authentication authentication = Authentication._();
 
  
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

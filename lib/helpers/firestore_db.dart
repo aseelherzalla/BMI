@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class FireStoreDb {
   FireStoreDb._();
 
-  static FireStoreDb fireStoreHelper = FireStoreDb._();
+  static FireStoreDb fireStoreDb = FireStoreDb._();
   FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   addUser(UserInformation user) async {
@@ -31,7 +31,7 @@ class FireStoreDb {
     await firebaseFireStore.collection("Users").doc(userId).get();
     return UserInformation.fromMap(documentSnapshot.data());
   }
-  Future<String> getUserEmailFromFireStoreByUserName(String name) async {
+  Future<String> getUserEmail(String name) async {
     QuerySnapshot querySnapshot =
     await firebaseFireStore.collection("Users").where("name",isEqualTo: name).get();
     return  querySnapshot.docs.length!=0?querySnapshot.docs[0]["email"]:null;
@@ -71,7 +71,7 @@ class FireStoreDb {
         .add(bmiStatus.toMap());
   }
 
-  Future<List<Status>> getAllBMIStatus(String userId) async {
+  Future<List<Status>> getAllStatus(String userId) async {
     QuerySnapshot querySnapshot = await firebaseFireStore
         .collection("Status").where("userId", isEqualTo: userId)
         .get();

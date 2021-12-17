@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RouterHelper{
   RouterHelper._();
-  static RouterHelper route = RouterHelper._();
+  static RouterHelper router = RouterHelper._();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   pushNamed(String routeName){
     navigatorKey.currentState.pushNamed(routeName);

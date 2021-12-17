@@ -6,6 +6,7 @@ class Food {
   String category;
   double calory;
   String img;
+  String unit;
 
   Food({
     @required this.userId,
@@ -13,6 +14,7 @@ class Food {
     @required this.category,
     @required this.calory,
     @required this.img,
+    @required this.unit,
   });
 
   Food.fromMap(Map map) {
@@ -21,6 +23,7 @@ class Food {
     this.category = map["category"];
     this.calory = map["calory"];
     this.img = map["foodPhotoUrl"];
+    this.unit = map["unit"];
   }
 
   toMap() {
@@ -30,6 +33,7 @@ class Food {
       "category": this.category,
       "calory": this.calory,
       "foodPhotoUrl": this.img,
+      "unit": this.unit,
     };
   }
 }

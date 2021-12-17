@@ -30,6 +30,8 @@ dependencies:
   firebase_storage: "^10.1.0"
   fluttertoast: ^8.0.8
   path_provider: ^2.0.2
+  intl: ^0.17.0
+  image_picker: ^0.8.4+4
 
 
 

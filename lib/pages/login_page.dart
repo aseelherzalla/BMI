@@ -1,16 +1,22 @@
 import 'package:bmi/main.dart';
 import 'package:bmi/pages/singup_page.dart';
+import 'package:bmi/providers/bmi_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget{
-  TextEditingController userNameController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
+  static String router ='LoginPage';
+  
   GlobalKey<FormState> formkey= GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
+    return
+    Consumer<BmiProvider>(
+       
+      builder:(context, provider, child) =>
+     Scaffold(
       appBar: AppBar(
         backgroundColor:Color(0xFF1588d8) ,
         title: Center(child: Text('BMI Analyzer')),
@@ -28,7 +34,7 @@ class LoginPage extends StatelessWidget{
               Text('if you already have an account, log in',style: TextStyle(color: Colors.black38),),
               SizedBox(height: 50,),
               DefultTextField(textName: 'Username',
-                        controller: userNameController,
+                        controller: provider.nameController,
                         obscure: false,
                         visible: false,
                         validaitor: (value){
@@ -38,7 +44,7 @@ class LoginPage extends StatelessWidget{
                             }}),
               
               DefultTextField(textName: 'Password',
-                        controller: passwordController,
+                        controller: provider.passwordController,
                         obscure: true,
                         visible: true,
                         validaitor: (value){
@@ -47,30 +53,13 @@ class LoginPage extends StatelessWidget{
         
                             }}),
                             SizedBox(height: 100,),
-                            GestureDetector(
-                      onTap: (){ },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        width: double.infinity,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                             color: Colors.grey,
-                             blurRadius: 10,
-                             offset: Offset(2, 4), // Shadow position
-                              ),
-                             ],
-                          color:Color(0xFF1588d8),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        
-                        child:Center(
-                          child: Text('Log In',style: TextStyle(fontSize:20,color:Colors.white),
-                          ),
-                        )
-                      ),
-                ),
+                           ElevatedButton(
+              child: Text('CREAT'),
+              style: Theme.of(context).elevatedButtonTheme.style,
+              onPressed: () {
+                
+              },
+            ),
                 SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -88,6 +77,7 @@ class LoginPage extends StatelessWidget{
             ],),
         ),
       ),
+    )
     );
   }
 
