@@ -169,7 +169,7 @@ class NewRecored extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                       provider.changDate(context);
+                       provider.pickDate(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -177,7 +177,7 @@ class NewRecored extends StatelessWidget {
                               Border.all(color: Theme.of(context).primaryColor)),
                       child:  Center(
                                     child: Text(
-                                  provider.date,
+                                  provider.fullDate,
                                   style: Theme.of(context).textTheme.headline3,
                                 )),        
                     ),
@@ -211,13 +211,13 @@ class NewRecored extends StatelessWidget {
               style: Theme.of(context).elevatedButtonTheme.style,
               onPressed: () {
 
-                if (provider.date != '' && provider.time != '') {
+                if (provider.fullDate != '' && provider.time != '') {
                         provider.addStutes(
                           Status(
                             userId: provider.userInfo.id,
                             height: provider.length,
                             weight: provider.weight,
-                            date: provider.date,
+                            date: provider.fullDate,
                             time: provider.time));
                         RouterHelper.router.pop();
                         provider.clearRecordFields();

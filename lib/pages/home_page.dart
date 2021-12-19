@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget{
             provider.statuses.isEmpty?Center(child: Text('noAddStatus',style: Theme.of(context).textTheme.headline1,)):
             ListView.builder(
               shrinkWrap: true,
-              itemCount: provider.stutes.length,
+              itemCount: provider.statuses.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   margin: EdgeInsetsDirectional.only(bottom: 10),

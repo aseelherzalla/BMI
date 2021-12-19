@@ -37,6 +37,7 @@ class BmiProvider extends ChangeNotifier{
   double length =100;
   double weight =40;
   String date='';
+   String fullDate='';
   String time='';
   File imagePath;
   File updeatedImagePath;
@@ -63,6 +64,16 @@ class BmiProvider extends ChangeNotifier{
   BmiProvider (){
     selectedItem = foodCategory.first;
     selectedUnit = foodunit.first;
+    notifyListeners();
+  }
+  pickDate(BuildContext context) async {
+
+    fullDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime((DateTime.now().year) - 1),
+            lastDate: DateTime((DateTime.now().year) + 1))
+        .then((value) => value == null ? '' : DateFormat('yMd').format(value));
     notifyListeners();
   }
   changeSelectedItem(String value){
@@ -98,10 +109,11 @@ class BmiProvider extends ChangeNotifier{
     repasswordController.clear();
   }
   clearRecordFields(){
-    weight = 30;
-    length = 120;
+    weight = 40;
+    length = 100;
     date = '';
     time = '';
+    fullDate='';
   }
   fillItems(){
     foodName.text = editedFoodItem.name;
