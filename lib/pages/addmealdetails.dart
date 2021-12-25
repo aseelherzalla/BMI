@@ -1,3 +1,4 @@
+import 'package:bmi/models/food.dart';
 import 'package:bmi/pages/home_page.dart';
 import 'package:bmi/pages/router.dart';
 import 'package:bmi/providers/bmi_provider.dart';
@@ -45,7 +46,7 @@ class AddMealDetails extends StatelessWidget{
                             underline: Container(),
                             isExpanded: true,
                             iconEnabledColor: Theme.of(context).primaryColor,
-                            value: provider.foodList==null?'No food added':provider.foodList.first.name,
+                            value: provider.foodList==null?'no food':provider.foodList.first.name,
                               items: provider.foodList
                                   .map(
                                     (e) => DropdownMenuItem<String>(
@@ -63,6 +64,9 @@ class AddMealDetails extends StatelessWidget{
                                   )
                                   .toList(),
                               onChanged: (v) {
+                              /* Food foodItem = provider.foodList.singleWhere((element) => element.name == v);
+                                provider.changeSelectedItemFromFoodList(foodItem);*/
+                                //provider.changeSelectedItemFromFoodList(v);
                               },
                             ),
                         Padding(
@@ -98,7 +102,7 @@ class AddMealDetails extends StatelessWidget{
                    ),
                     Padding(
                       padding: const EdgeInsetsDirectional.only(start: 5),
-                      child: Text('unit', style: Theme.of(context).textTheme.headline3,),
+                      child: Text('Unit', style: Theme.of(context).textTheme.headline3,),
                     ),
                    
                  ],
@@ -128,12 +132,11 @@ class AddMealDetails extends StatelessWidget{
                       decoration: BoxDecoration(
                           border:
                               Border.all(color: Theme.of(context).primaryColor)),
-                      child: Expanded(
-                          child: Center(
-                              child: Text(
+                      child: Center(
+                          child: Text(
                         provider.time,
                         style: Theme.of(context).textTheme.headline3,
-                      ))),
+                      )),
                     ),
                   ),
                 ],
@@ -154,7 +157,7 @@ class AddMealDetails extends StatelessWidget{
                          provider.clearRecordFields();
                        },),
                   ),
-                  SizedBox(width: 60,),
+                  Expanded(child: SizedBox(width: 60,)),
                     Expanded(
                     child: ElevatedButton(
                        child: Text('Save'),

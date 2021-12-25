@@ -47,7 +47,7 @@ class _SplashState extends State<Splach> {
     super.initState();
     Timer(
         Duration(seconds:2),
-        () => Provider.of<BmiProvider>(context,listen: false).isLogin());
+        () => Provider.of<BmiProvider>(context,listen: false).logout());//Provider.of<BmiProvider>(context,listen: false).isLogin()
   }
 
   @override

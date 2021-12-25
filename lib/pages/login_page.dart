@@ -54,10 +54,10 @@ class LoginPage extends StatelessWidget{
                             }}),
                             SizedBox(height: 100,),
                            ElevatedButton(
-              child: Text('CREAT'),
+              child: Text('Sing In'),
               style: Theme.of(context).elevatedButtonTheme.style,
               onPressed: () {
-                
+                 provider.loginButton();
               },
             ),
                 SizedBox(height: 30,),

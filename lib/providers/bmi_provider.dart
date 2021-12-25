@@ -61,6 +61,7 @@ class BmiProvider extends ChangeNotifier{
   ];
   String selectedItem;
   String selectedUnit;
+  String selectedItemFromFoodList;
   BmiProvider (){
     selectedItem = foodCategory.first;
     selectedUnit = foodunit.first;
@@ -78,6 +79,10 @@ class BmiProvider extends ChangeNotifier{
   }
   changeSelectedItem(String value){
   selectedItem=value;
+  notifyListeners();
+  }
+  changeSelectedItemFromFoodList(String value){
+  selectedItemFromFoodList=value;
   notifyListeners();
   }
   changeEditedFood(Food value){
@@ -231,6 +236,7 @@ notifyListeners();
             .logIn(email, passwordController.text.trim());
         if (result) {
           getCurrentUser();
+          allUserData();
           //getData();
           RouterHelper.router.pushReplacementNamed(HomePage.router);
         }
@@ -242,7 +248,6 @@ notifyListeners();
     }
     clear();
     }
-    
   allUserData(){
     getUser();
     getAllStatus();
